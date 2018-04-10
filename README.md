@@ -29,7 +29,7 @@ There is a .gitignore in this repo which should keep it out of any general `git 
 
 ### *nix machines:
 
-Just run cmake and it **should** work (tm).
+Just run make and it **should** work (tm).
 
 ### Windows machines (Visual Studio):
 

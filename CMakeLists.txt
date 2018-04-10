@@ -10460,6 +10460,9 @@ add_executable(PlaceholderName
         depend/include/lua.hpp
         depend/include/luaconf.h
         depend/include/lualib.h
-        include/Engine.hpp
+        include/Engine.h
+        include/logger.hpp
+        include/q.hpp
+        src/logger.cpp
         src/main.cpp
         README.md)
