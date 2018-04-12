@@ -9,6 +9,9 @@
 /* JSON lib */
 #include "rapidjson/document.h"
 
+#include "boost/shared_ptr.hpp"
+typedef boost::shared_ptr<__logger::cLogger> logger_ptr;
+
 namespace __CORE
 {
 
@@ -17,6 +20,7 @@ namespace __CORE
     public:
         Engine();
         Engine(std::string configLoc);
+        Engine(std::string configLoc, std::string logLoc);
         ~Engine();
         void Run();
 

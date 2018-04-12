@@ -57,10 +57,6 @@
 //My own queue that does handles multithreaded access
 #include "q.hpp"
 
-//JH (27/03/2018): Added boost_ptr exporting cLogger shared_ptr for "better" practises
-#include "boost/shared_ptr.hpp"
-typedef boost::shared_ptr<__logger::cLogger> logger_ptr;
-
 namespace __logger{
 
     enum loglevel_t{

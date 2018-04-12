@@ -1,8 +1,9 @@
 #include "Engine.h"
+#include "Utility.hpp"
 
-#include "rapidjson/istreamwrapper.hpp"
-#include "rapidjson/error/error.hpp"
-#include "rapidjson/error/en.hpp"
+#include "rapidjson/istreamwrapper.h"
+#include "rapidjson/error/error.h"
+#include "rapidjson/error/en.h"
 
 namespace __CORE
 {
@@ -12,11 +13,13 @@ namespace __CORE
         fstream ifs(confLoc); //Should be __CORE::fstream
         rapidjson::IStreamWrapper isw(ifs);
         
-        rapidjson::ParseResult pr = _config->ParseStream(isw);
+        rapidjson::ParseResult pr = _config.ParseStream(isw);
         if(pr)
         {
-            throw std::exception("")
+            _Log->Error("[Engine] Failed to load config file: ", confLoc, ". Error: ", rapidjson::GetParseError_En(pr));
         }
+        //HACK
+        //We should have a nice custom container here, but too lazy ATM
     }
 
 }

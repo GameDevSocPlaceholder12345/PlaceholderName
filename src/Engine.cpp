@@ -6,36 +6,39 @@
 #include <iostream>
 #include <thread>
 
-
 #include "Engine.h"
-#include "Exception.hpp"
+#include "Exception.h"
 
 #include "boost/make_shared.hpp"
 
 namespace __CORE
-{
-
-    Engine::Engine() : Engine("system/settings.json") {}
-
+{ 
+    Engine::Engine() : Engine("system/settings.json") {} 
     Engine::Engine(std::string configLoc) : Engine(configLoc, "log/_engine.log") {}
 
     Engine::Engine(std::string configLoc, std::string logLoc)
     {
-        _Log = boost::make_shared<__logger::cLogger>(new __logger::cLogger(logLoc)); //Create new log member
+        __logger::cLogger newLog(logLoc);
+        _Log = boost::make_shared<__logger::cLogger>(newLog); //Create new log member
         _Log->start().detach(); //LAZY: Could store the thread just to check in on the guy.
-        _Log->info("[Engine] Engine v", _major_version, ".", _minor_version, " initializing!");
+        _Log->info("[Engine] Engine v", _major_v, ".", _minor_v, " initializing!");
 
         /* We're alive! */
-        this->dead = 0;
+        dead = 0;
         try
         {
             loadConfig(configLoc);
             initSDL();
         }
-        catch (EngineException e)
+        catch (ConfigurationException e)
         {
             /* We're probably misconfigured */
-            this->dead = true; //Kill before we even try to enter game loop
+            _Log->error("[Engine] A configuration exception has occurred. Error: ", e.what());
+            dead = true; //Kill before we even try to enter game loop
+        }
+        catch (std::exception e)
+        {
+            _Log->error("[Engine] A generic exception has been caught. Error: ", e.what());
         }
     }
 
@@ -48,7 +51,7 @@ namespace __CORE
         _Log->kill();
         //Nesure all data has been logged.
         _Log->done.lock();
-        _Log->done.unlock()
+        _Log->done.unlock();
     }
 
     void Engine::Run()
@@ -74,9 +77,19 @@ namespace __CORE
         );
     }
 
-    void Engine::loadConfig(std::string configLoc)
+    void Engine::Update()
     {
-        
+        //TODO
     }
 
-}
+    void Engine::Render()
+    {
+        //TODO
+    }
+
+    void Engine::ProcessEvents()
+    {
+        //TODO
+    }
+
+} 
