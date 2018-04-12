@@ -3,11 +3,11 @@
 
 #include <string>
 
-#include "SDL2/SDL2.h""
+#include "SDL2/SDL.h""
 /* Logging lib */
 #include "logger.hpp"
 /* JSON lib */
-#include "rapidjson/document.hpp"
+#include "rapidjson/document.h"
 
 namespace __CORE
 {
