@@ -1,16 +1,19 @@
-#ifndef ENGINE_HPP
-#define ENGINE_HPP
+#ifndef ENGINE_H
+#define ENGINE_H
 
 #include <string>
 
-#include "SDL2/SDL.h""
+#ifdef _WIN32
+#include "SDL2_Win/SDL.h"
+#else
+#include "SDL2/SDL.h"
+#endif
 /* Logging lib */
 #include "logger.hpp"
 /* JSON lib */
 #include "rapidjson/document.h"
 
-#include "boost/shared_ptr.hpp"
-typedef boost::shared_ptr<__logger::cLogger> logger_ptr;
+typedef std::shared_ptr<__logger::cLogger> logger_ptr;
 
 namespace __CORE
 {
@@ -52,9 +55,8 @@ namespace __CORE
 
         const int _major_v = 0;
         const int _minor_v = 1;
-
     };
 
 }
 
-#endif //ENGINE_HPP
+#endif //ENGINE_H

@@ -2,28 +2,47 @@
 #define EXCEPTION_H
 
 #include <exception>
+#include <sstream>
 
 namespace __CORE
 {
 
-    class GenericException : std::exception
+    struct GenericException : std::exception
     {
+    public:
+        template<class... TArgs>
+        GenericException(TArgs... FArgs) {
+            std::ostringstream oss;
+            _unpack(oss, FArgs...);
+            message = oss.str();
+        }
         const char* what() const throw() 
         {
             return message.c_str();
         }
-        
-        GenericException(std::string in) message(in) {}
         std::string message;
+
+    private:
+        void _unpack(std::ostringstream& ss) { return; } //Base case for unpacking recursion
+        template<class T, class... Targs>
+        void _unpack(std::ostringstream& ss, T value, Targs... Fargs)
+        {
+            ss << value;
+            _unpack(ss, Fargs...);
+        }
     };
 
-    class EngineException : public GenericException 
+    struct EngineException : GenericException 
     {
-        EngineException(std::string in) : GenericException(in) {}
+        template<class... TArgs>
+        EngineException(TArgs... FArgs) : GenericException(FArgs...) {}
     };
-    class ConfigurationException : public GenericException {
-        ConfigurationException(std::string in) : GenericException(in) {}
+    struct ConfigurationException : GenericException 
+    {
+        template<class... TArgs>
+        ConfigurationException(TArgs... FArgs) : GenericException(FArgs...) {}
     };
+
 
 }
 

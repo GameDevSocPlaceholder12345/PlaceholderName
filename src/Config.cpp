@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Exception.h"
 #include "Utility.hpp"
 
 #include "rapidjson/istreamwrapper.h"
@@ -14,9 +15,9 @@ namespace __CORE
         rapidjson::IStreamWrapper isw(ifs);
         
         rapidjson::ParseResult pr = _config.ParseStream(isw);
-        if(pr)
+        if(pr.IsError())
         {
-            _Log->Error("[Engine] Failed to load config file: ", confLoc, ". Error: ", rapidjson::GetParseError_En(pr));
+            throw ConfigurationException("[Engine] Failed to load config file: ", confLoc, ". Error: ", rapidjson::GetParseError_En(pr.Code()));
         }
         //HACK
         //We should have a nice custom container here, but too lazy ATM
