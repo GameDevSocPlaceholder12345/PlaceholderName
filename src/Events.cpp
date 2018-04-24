@@ -10,7 +10,7 @@ namespace __CORE
 {
     void Engine::HandleUserKeyboard(SDL_Keycode key, bool isDown, uint32_t modifiers)
     {
-        std::cerr << "Key: " << key << " Modifier: " << modifiers << std::endl;
+        /* Debug Box (To test if not responding) */
         if (
                 key == _config["debug"]["debug_box_key"].GetInt() &&
                 isDown &&

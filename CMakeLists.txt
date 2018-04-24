@@ -22,12 +22,26 @@ add_executable (placeholder
     src/Events.cpp
 )
 
-target_link_libraries(placeholder
-    lua53
-    SDL2
-    SDL2main
-    SDL2_ttf
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-)
+if (WIN32)
+    target_link_libraries(placeholder
+        lua53
+        SDL2
+        SDL2main
+        SDL2_ttf
+        SDL2_image
+        SDL2_mixer
+        SDL2_ttf
+    )
+endif (WIN32)
+
+if (UNIX)
+    target_link_libraries(placeholder
+        lua5.3
+        SDL2
+        SDL2main
+        SDL2_ttf
+        SDL2_image
+        SDL2_mixer
+        SDL2_ttf
+    )
+endif (UNIX)

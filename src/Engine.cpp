@@ -122,6 +122,9 @@ namespace __CORE
         SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 0); //Clear the screen. Do nothing else
         SDL_RenderClear(_Renderer);
         /* Draw objects here */
+
+
+        /* Don't draw on top of debug box */
         if (debugBox)
         {
             SDL_SetRenderDrawColor(_Renderer, 255, 0, 0, 0);
