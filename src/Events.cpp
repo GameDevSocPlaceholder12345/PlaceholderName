@@ -4,12 +4,18 @@
 
 #include "Engine.h"
 
+#include <iostream>
 
 namespace __CORE
 {
     void Engine::HandleUserKeyboard(SDL_Keycode key, bool isDown, uint32_t modifiers)
     {
-        if (key == SDLK_RETURN && isDown)
+        std::cerr << "Key: " << key << " Modifier: " << modifiers << std::endl;
+        if (
+                key == _config["debug"]["debug_box_key"].GetInt() &&
+                isDown &&
+                modifiers == _config["debug"]["debug_box_modifier"].GetInt()
+            )
         {
             debugBox = true; //TODO: DELETE THIS
         }

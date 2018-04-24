@@ -162,35 +162,35 @@ namespace __CORE
 
                 case SDL_MOUSEBUTTONDOWN:
                     HandleUserMouse(
-                            e.button.x,
-                            e.button.y,
-                            e.button.button,
-                            e.button.type==SDL_MOUSEBUTTONDOWN
+                        e.button.x,
+                        e.button.y,
+                        e.button.button,
+                        e.button.type==SDL_MOUSEBUTTONDOWN
                     );
                     break;
 
                 case SDL_MOUSEBUTTONUP:
                     HandleUserMouse(
-                            e.button.x,
-                            e.button.y,
-                            e.button.button,
-                            e.button.type==SDL_MOUSEBUTTONDOWN
+                        e.button.x,
+                        e.button.y,
+                        e.button.button,
+                        e.button.type==SDL_MOUSEBUTTONDOWN
                     );
                     break;
 
                 case SDL_MOUSEWHEEL:
                     HandleUserScroll(
-                            e.wheel.x,
-                            e.wheel.y
+                        e.wheel.x,
+                        e.wheel.y
                     );
                     break;
 
                 case SDL_MOUSEMOTION:
                     HandleUserMouse(
-                            e.motion.x,
-                            e.motion.y,
-                            -1, //Uninitialized mouse button
-                            0 //Ignored anyway because no button is found
+                        e.motion.x,
+                        e.motion.y,
+                        -1, //Uninitialized mouse button
+                        0 //Ignored anyway because no button is found
                     );
                     break;
 
