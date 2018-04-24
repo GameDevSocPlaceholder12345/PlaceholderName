@@ -31,6 +31,7 @@ namespace __CORE
         {
             loadConfig(configLoc);
             initSDL();
+            debugBox = false;
         }
         catch (ConfigurationException e)
         {
@@ -112,20 +113,93 @@ namespace __CORE
 
     void Engine::Update()
     {
-        //TODO
+        //TODO - Just iterate through all objects and call tick() on all of them.
     }
 
     void Engine::Render()
     {
         //TODO: Remove stub
-        SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 255); //Clear the screen. Do nothing else
-        /* Draw objects here */
+        SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 0); //Clear the screen. Do nothing else
         SDL_RenderClear(_Renderer);
+        /* Draw objects here */
+        if (debugBox)
+        {
+            SDL_SetRenderDrawColor(_Renderer, 255, 0, 0, 0);
+            SDL_Rect r;
+            r.x = _config["engine"]["width"].GetInt()/2 - 5; r.y = _config["engine"]["height"].GetInt()/2 - 5; r.h = 10; r.w = 10;
+            SDL_RenderFillRect(_Renderer, &r);
+        }
+
+        SDL_RenderPresent(_Renderer);
     }
 
     void Engine::ProcessEvents()
     {
-        //TODO
+        SDL_Event e;
+        while(SDL_PollEvent(&e) != 0)
+        {
+            switch(e.type)
+            {
+                case SDL_QUIT:
+                    _Sudoku();
+                    break;
+
+                case SDL_KEYDOWN:
+                    HandleUserKeyboard(
+                        e.key.keysym.sym,
+                        e.key.type == SDL_KEYDOWN,
+                        e.key.keysym.mod
+                    );
+                    break;
+
+                case SDL_KEYUP:
+                    HandleUserKeyboard(
+                        e.key.keysym.sym,
+                        e.key.type == SDL_KEYDOWN,
+                        e.key.keysym.mod
+                    );
+                    break;
+
+                case SDL_MOUSEBUTTONDOWN:
+                    HandleUserMouse(
+                            e.button.x,
+                            e.button.y,
+                            e.button.button,
+                            e.button.type==SDL_MOUSEBUTTONDOWN
+                    );
+                    break;
+
+                case SDL_MOUSEBUTTONUP:
+                    HandleUserMouse(
+                            e.button.x,
+                            e.button.y,
+                            e.button.button,
+                            e.button.type==SDL_MOUSEBUTTONDOWN
+                    );
+                    break;
+
+                case SDL_MOUSEWHEEL:
+                    HandleUserScroll(
+                            e.wheel.x,
+                            e.wheel.y
+                    );
+                    break;
+
+                case SDL_MOUSEMOTION:
+                    HandleUserMouse(
+                            e.motion.x,
+                            e.motion.y,
+                            -1, //Uninitialized mouse button
+                            0 //Ignored anyway because no button is found
+                    );
+                    break;
+
+                default:
+                    //Unsupported event
+                    _Log->info("Unsupported event recieved!. SDL_Event.type = ", e.type);
+                    break;
+            };
+        }
     }
 
 } 

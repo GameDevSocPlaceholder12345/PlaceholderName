@@ -42,6 +42,12 @@ namespace __CORE
         void ProcessEvents();
         void Update();
         void Render();
+        void _Sudoku(); //Exiting main loop
+
+        /* Event processing */
+        void HandleUserKeyboard(SDL_Keycode key, bool isDown, uint32_t modifiers);
+        void HandleUserMouse(int32_t x, int32_t y, int32_t button, bool isDown);
+        void HandleUserScroll(int32_t dx, int32_t dy);
 
         /* Configuration */
         rapidjson::Document _config;
@@ -52,6 +58,7 @@ namespace __CORE
 
         /* Debugging */ 
         logger_ptr _Log;
+        bool debugBox;
 
         const int _major_v = 0;
         const int _minor_v = 1;

@@ -1,13 +1,13 @@
 CC=clang++
 CFLAGS=-c -O3 --std=c++14 -g -Wall -iquote include/ -iquote depend/include/
-LDFLAGS=
+LDFLAGS=-lSDL2 -lSDL2_mixer -pthread
 SDIR=src/
 #SOURCES=$(wildcard ./$(SDIR)*.cpp)
 SOURCES=$(shell find $(SDIR) -type f -name '*.cpp')
 CSOURCES=$(shell find $(SDIR) -type f -name '*.c')
 OBJECTS=$(SOURCES:.cpp=.o) $(CSOURCES:.c=.o)
 
-EXECUTABLE=MoL
+EXECUTABLE=PlaceholderName
 
 all: $(SOURCES) $(CSOURCES) $(EXECUTABLE)
 

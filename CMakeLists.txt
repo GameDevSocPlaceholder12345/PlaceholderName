@@ -9,24 +9,25 @@ include_directories (${CMAKE_SOURCE_DIR}/depend/include)
 include_directories (${CMAKE_SOURCE_DIR}/include)
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-	link_directories(depend/lib/x64)
+    link_directories(depend/lib/x64)
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-	link_directories(depend/lib/x86)
+    link_directories(depend/lib/x86)
 endif()
 
 add_executable (placeholder
-        src/Config.cpp
-        src/Engine.cpp
-        src/logger.cpp
-        src/main.cpp
+    src/Config.cpp
+    src/Engine.cpp
+    src/logger.cpp
+    src/main.cpp
+    src/Events.cpp
 )
 
 target_link_libraries(placeholder
-	lua53
-	SDL2
-	SDL2main
-	SDL2_ttf
-	SDL2_image
-	SDL2_mixer
-	SDL2_ttf
+    lua53
+    SDL2
+    SDL2main
+    SDL2_ttf
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
 )
