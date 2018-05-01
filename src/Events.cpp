@@ -17,7 +17,7 @@ namespace __CORE
                 modifiers == _config["debug"]["debug_box_modifier"].GetInt()
             )
         {
-            debugBox = true; //TODO: DELETE THIS
+            debugBox = true;
         }
     }
 

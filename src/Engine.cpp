@@ -124,7 +124,7 @@ namespace __CORE
         /* Draw objects here */
 
 
-        /* Don't draw on top of debug box */
+        /* Don't draw on top of debug box - Should be the last thing drawn */
         if (debugBox)
         {
             SDL_SetRenderDrawColor(_Renderer, 255, 0, 0, 0);
